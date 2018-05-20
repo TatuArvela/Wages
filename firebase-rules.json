@@ -1,0 +1,42 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    ".validate": "newData.hasChildren(['times']) || newData.hasChildren(['wages'])",
+    "times": {
+      ".indexOn": ["date"],
+      "$uid": {
+        ".validate": "newData.hasChildren(['personName', 'personId', 'date', 'start', 'end'])",
+        "personName": {
+          ".validate": "newData.isString()"
+        },
+        "personId": {
+          ".validate": "newData.isNumber()"
+        },
+        "date": {
+          ".validate": "newData.isNumber()"
+        },
+        "start": {
+          ".validate": "newData.isString() && newData.val().matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)"
+        },
+        "end": {
+          ".validate": "newData.isString() && newData.val().matches(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)"
+        }
+      }
+    },
+    "wages": {
+      "$uid": {
+        ".validate": "newData.hasChildren(['personName', 'personId', 'wages', 'monthAndYear'])",
+        "personName": {
+          ".validate": "newData.isString()"
+        },
+        "personId": {
+          ".validate": "newData.isNumber()"
+        },
+        "wages": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    }
+  }
+}
