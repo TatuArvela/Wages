@@ -1,9 +1,19 @@
 import csvtojson from 'csvtojson';
 import moment from 'moment';
-import { timesRef, wagesRef } from '../config/firebase';
+import {
+  timesRef,
+  wagesRef
+} from '../config/firebase';
 
-import { FETCH_WAGE_DATA, FETCH_TIME_DATA, TOGGLE_INFO_MODAL, TOGGLE_ACTIVE_TAB } from './types';
-import { csvHeaders } from '../strings'
+import {
+  FETCH_WAGE_DATA,
+  FETCH_TIME_DATA,
+  TOGGLE_INFO_MODAL,
+  TOGGLE_ACTIVE_TAB
+} from './types';
+import {
+  csvHeaders
+} from '../strings'
 
 export const toggleInfoModal = () => {
   return function (dispatch) {
@@ -29,7 +39,7 @@ export const addWageData = newWageData => async dispatch => {
 export const fetchWageData = () => async dispatch => {
   wagesRef.on('value', snapshot => {
     if (snapshot.val() != null) {
-      var result = Object.keys(snapshot.val()).map(function(key) {
+      var result = Object.keys(snapshot.val()).map(function (key) {
         return snapshot.val()[key];
       });
       dispatch({
@@ -46,7 +56,7 @@ export const fetchTimeData = () => async dispatch => {
 
   timesRef.orderByChild("date").startAt(startDate).endAt(endDate).on('value', snapshot => {
     if (snapshot.val() != null) {
-      var result = Object.keys(snapshot.val()).map(function(key) {
+      var result = Object.keys(snapshot.val()).map(function (key) {
         return snapshot.val()[key];
       });
       dispatch({
@@ -66,21 +76,32 @@ export const handleUpload = files => dispatch => {
 const parseFileAndSaveData = file => {
   const reader = new FileReader();
 
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     csvtojson({
-      noheader: true,
-      headers: csvHeaders,
-      colParser: {
-        'personId': 'number',
-        'date': (date) => { return moment(date, 'D.M.YYYY').toDate().valueOf() },
-      }
-    })
-    .fromString(reader.result)
-    .on('end_parsed',(jsonArrObj) => {
-      jsonArrObj.forEach(row => {
-        timesRef.push(row);
-      });
-    })
+        checkColumn: true,
+        noheader: false,
+        headers: csvHeaders,
+        colParser: {
+          'personId': 'number',
+          'date': (date) => {
+            if (moment(date, 'D.M.YYYY').isValid()) {
+              var parsedDate = moment(date, 'D.M.YYYY');
+              return parsedDate.toDate().valueOf();
+            }
+            return undefined;
+          }
+        }
+      })
+      .fromString(reader.result)
+      .on('error', (err) => {
+        console.log(err)
+      })
+      .on('end_parsed', (jsonArrObj) => {
+        console.log(jsonArrObj);
+        jsonArrObj.forEach(row => {
+          timesRef.push(row);
+        });
+      })
   }
   reader.readAsText(file);
 }
