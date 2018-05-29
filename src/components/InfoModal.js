@@ -7,7 +7,7 @@ const InfoModal = ({ visible, toggleInfoModal }) => (
     <ModalHeader toggle={toggleInfoModal}>CSV file format specification</ModalHeader>
     <ModalBody>
       <h3>Data File Format</h3>
-      <p>File format is CSV (Comma Separated Values). Every data row specifies one work shift and split shifts are allowed. All timestamps are given in 15-minute increments.</p>
+      <p>The file format is CSV (Comma Separated Values). Every data row specifies one work shift and split shifts are allowed. All timestamps are given in 15-minute increments.</p>
       <p>The first row is expected to be a header description row, and is omitted from processing.</p>
       <pre className="bg-light"><code>Person Name, Person ID, Date, Start, End</code></pre>
 
