@@ -26,7 +26,7 @@
     },
     "wages": {
       "$uid": {
-        ".validate": "newData.hasChildren(['personName', 'personId', 'wages', 'monthAndYear'])",
+        ".validate": "newData.hasChildren(['personName', 'personId', 'wages', 'yearAndMonth'])",
         "personName": {
           ".validate": "newData.isString()"
         },

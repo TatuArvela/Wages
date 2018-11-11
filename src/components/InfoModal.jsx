@@ -47,7 +47,7 @@ const InfoModal = ({ visible, toggleInfoModal }) => (
       <pre className="bg-light"><code>John Smith, 8, 26.3.2014, 13:15, 2:00</code></pre>
     </ModalBody>
     <ModalFooter>
-      <Button color="primary" onClick={toggleInfoModal}>Good to know</Button>{' '}
+      <Button color="primary" onClick={toggleInfoModal}>Got it!</Button>{' '}
     </ModalFooter>
   </Modal>
 )

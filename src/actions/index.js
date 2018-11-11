@@ -6,10 +6,12 @@ import {
 } from '../config/firebase';
 
 import {
-  FETCH_WAGE_DATA,
-  FETCH_TIME_DATA,
+  SET_WAGE_DATA,
+  SET_TIME_DATA,
   TOGGLE_INFO_MODAL,
-  TOGGLE_ACTIVE_TAB
+  TOGGLE_ACTIVE_TAB,
+  CHANGE_MONTH,
+  CHANGE_YEAR
 } from './types';
 import {
   csvHeaders
@@ -32,36 +34,86 @@ export const toggleActiveTab = (tab) => {
   }
 }
 
+export const changeMonth = (month) => {
+  return function (dispatch) {
+    dispatch({
+      type: CHANGE_MONTH,
+      payload: month
+    })
+  }
+}
+
+export const changeYear = (year) => {
+  return function (dispatch) {
+    dispatch({
+      type: CHANGE_YEAR,
+      payload: year
+    })
+  }
+}
+
 export const addWageData = newWageData => async dispatch => {
   wagesRef.push().set(newWageData);
 };
 
-export const fetchWageData = () => async dispatch => {
-  wagesRef.on('value', snapshot => {
+export const fetchAllData = (date) => {
+  return function (dispatch) {
+    dispatch(fetchTimeData(date));
+    dispatch(fetchWageData(date));
+  }
+}
+
+export const fetchWageData = (date) => async dispatch => {
+  const momentDate = moment(date).format('YYYY-M');
+
+  wagesRef.orderByChild('yearAndMonth').equalTo(momentDate).on('value', snapshot => {
     if (snapshot.val() != null) {
       var result = Object.keys(snapshot.val()).map(function (key) {
         return snapshot.val()[key];
       });
       dispatch({
-        type: FETCH_WAGE_DATA,
-        payload: result
+        type: SET_WAGE_DATA,
+        payload: {
+          date: date,
+          rows: result
+        }
+      });
+    }
+    else {
+      dispatch({
+        type: SET_WAGE_DATA,
+        payload: {
+          date: date
+        }
       });
     }
   });
 };
 
-export const fetchTimeData = () => async dispatch => {
-  var startDate = moment().startOf('month').valueOf();
-  var endDate = moment().endOf('month').valueOf();
+export const fetchTimeData = (date) => async dispatch => {
+  const momentDate = moment(date);
+  const startDate = momentDate.startOf('month').valueOf();
+  const endDate = momentDate.endOf('month').valueOf();
 
-  timesRef.orderByChild("date").startAt(startDate).endAt(endDate).on('value', snapshot => {
+  timesRef.orderByChild('date').startAt(startDate).endAt(endDate).on('value', snapshot => {
     if (snapshot.val() != null) {
       var result = Object.keys(snapshot.val()).map(function (key) {
         return snapshot.val()[key];
       });
       dispatch({
-        type: FETCH_TIME_DATA,
-        payload: result
+        type: SET_TIME_DATA,
+        payload: {
+          date: date,
+          rows: result
+        }
+      });
+    }
+    else {
+      dispatch({
+        type: SET_TIME_DATA,
+        payload: {
+          date: date
+        }
       });
     }
   });
@@ -97,7 +149,6 @@ const parseFileAndSaveData = file => {
         console.log(err)
       })
       .on('end_parsed', (jsonArrObj) => {
-        console.log(jsonArrObj);
         jsonArrObj.forEach(row => {
           timesRef.push(row);
         });

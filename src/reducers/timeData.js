@@ -1,9 +1,17 @@
-import { FETCH_TIME_DATA } from "../actions/types";
+import { SET_TIME_DATA } from "../actions/types";
 
-const timeData = (state = [], action) => {
+const initialState = {
+  date: null,
+  rows: []
+}
+
+const timeData = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_TIME_DATA:
-      return action.payload
+    case SET_TIME_DATA:
+      return {
+        date: action.payload.date,
+        rows: action.payload.rows ? action.payload.rows : []
+      }
     default:
       return state
   }

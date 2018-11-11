@@ -6,9 +6,7 @@ import moment from 'moment';
 import { monthNames } from '../strings';
 
 const TimeReport = ({ timeData }) => {
-  const date = new Date();
-
-  var dataRows = timeData.map(function (row, i) {
+  var dataRows = timeData.rows.map(function (row, i) {
     return (
       <tr key={i}>
         <td>{row.personId}</td>
@@ -21,26 +19,27 @@ const TimeReport = ({ timeData }) => {
   });
 
   return (
-    <Card className='col-sm-12 rounded-0 border-0'>
-      <CardBody>
-        <div>
-          <h2>Reported hours for {monthNames[date.getMonth()]} {date.getFullYear()}</h2>
-          <p>Table of all reported hours</p>
+    <Card className="col-sm-12 rounded-0 border-0">
+      <CardBody className="px-1">
+        {timeData.date &&
+          <h2 className="text-center">Reported hours for {monthNames[timeData.date.getMonth()]} {timeData.date.getFullYear()}</h2>
+        }
+        <div className="report-container">
+          <Table className='mt-4 table-striped'>
+            <thead>
+              <tr>
+                <th>Employee Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Start time</th>
+                <th>End time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataRows}
+            </tbody>
+          </Table>
         </div>
-        <Table className='mt-4 table-striped table-bordered'>
-          <thead>
-            <tr>
-              <th>Person id</th>
-              <th>Person name</th>
-              <th>Date</th>
-              <th>Start time</th>
-              <th>End time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataRows}
-          </tbody>
-        </Table>
       </CardBody>
     </Card>
   )

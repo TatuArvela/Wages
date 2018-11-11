@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
-import wageData from './wageData'
-import timeData from './timeData'
+import date from './date'
 import infoModal from './infoModal'
 import tabs from './tabs'
+import timeData from './timeData'
+import wageData from './wageData'
 
 export default combineReducers({
-  wageData,
-  timeData,
+  date,
   infoModal,
-  tabs
+  tabs,
+  timeData,
+  wageData
 })

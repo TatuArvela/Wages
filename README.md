@@ -2,40 +2,36 @@
 
 ![Wages icon](./logo-64.png?raw=true "Wages")
 
-Version 0.1.0
+Version 0.2.0
 
-## Description
+Import the working time data of your employees and calculate their monthly wages automatically. Time data is imported in a [predefined CSV format](#csv-file-format-specification).
 
-With Wages, you can import the working time data of your employees ~~and calculate their monthly wages based on it automatically~~. Time data is imported in a [predefined CSV format](#csv-file-format-specification).
-
-Wages is built with React, Redux, Bootstrap 4, Firebase and GitHub Pages. An online demo is available [here](https://tatuarvela.github.io/Wages/).
+Wages is an open source web application built with React, Redux, Bootstrap 4, Firebase and GitHub Pages. A live demo is available [here](https://tatuarvela.github.io/Wages/).
 
 **Note:** No calculations are implemented yet. Data is only shown for the current month and year.
 
-
 ## Usage
 
-### Local deployment
+Start by cloning the app on your computer with Git.  
+Install the dependencies for the project with `yarn install` or `npm install`.
 
-#### Configuration
+### Firebase configuration
 
-The application requires a Firebase backend. Details of this process can be found [on the Firebase website](https://firebase.google.com/). Make a copy of `Wages/config/_example.js` and name it `dev.js`. Fill in the API key details of your Firebase backend. The backend functions are yet to be implemented, but some basic data rules for Firebase can be found in `Wages/firebase-rules.json`. Basic test data can be found in `Wages/firebase-test-data.json`.
+The application requires a Firebase backend. Details on acquiring one can be found [on the Firebase website](https://firebase.google.com/).
+
+Fill *Wages/config/_keys.js* with your Firebase API key details, and rename it *keys.js*.
+
+The backend functions are yet to be implemented, but some basic data rules for Firebase can be found in *Wages/firebase-rules.json*. Basic test data can be found in *Wages/firebase-test-data.json*.
 
 ### Starting local development server
 
-The application uses `create-react-app`, and can thus be started with predefined scripts using `yarn` or `npm`.
+The application uses `create-react-app`, and can thus be started with predefined scripts using `yarn start` or `npm start`.
 
-Steps:
-1. `yarn install` / `npm install`
-2. `yarn start` / `npm start`
+The application will open in a new browser tab. The application's default URL is `localhost:3000`.
 
 ### Deploying to GitHub Pages
 
-To deploy the application, you need to create a GitHub repository, and define it as the remote to this project. Details can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/). Deployment is done using `gh-pages`, and the predefined script can be executed with `yarn` or `npm`.
-
-Steps:
-1. `yarn run deploy` / `npm run deploy`
-
+To deploy the application using GitHub Pages, you first need to create a GitHub repository and define it as the remote to this project. Details can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/). Deployment is done using gh-pages, and the preconfigured script can be executed with `yarn run deploy` or `npm run deploy`.
 
 ## Specifications
 
@@ -52,53 +48,29 @@ Headers:
 `Person Name, Person ID, Date, Start, End`
 
 #### Data Elements
-| Field	| Expected data |
+
+| Field | Expected data |
 | --- | --- |
-| Person Name |	Textual Name of the | Employee
-| Person | ID	Unique ID of the Employee
-| Date |	DD.MM.YYYY, Work Shift Date
-| Start |	HH:MM, Shift Start Time (24h)
-| End |	HH:MM, Shift End Time (24h)
+| Person Name | Textual Name of the Employee
+| Person ID | Unique ID of the Employee
+| Date | DD.MM.YYYY, Work Shift Date
+| Start | HH:MM, Shift Start Time (24h)
+| End | HH:MM, Shift End Time (24h)
 
 Example Data Row:
 
 `John Smith, 8, 26.3.2014, 13:15, 2:00`
 
-
 ### Compensation categories and rules
 
 | Title | Rules | Pay |
 | --- | --- | --- |
-| **Regular daily wage** | Paid for all hours | Working hours * Hourly wage ($4.25) |
-| **Evening work compensation** | Paid for all hours between 19:00 and 06:00 | Working hours * Evening pay ($1.25) |
+| **Regular daily wage** | Paid for all hours | Working hours &times; Hourly wage ($4.25) |
+| **Evening work compensation** | Paid for all hours between 19:00 and 06:00 | Working hours &times; Evening pay ($1.25) |
 | **Overtime compensation** | Paid for hours over daily working hours (8 hours). When the working shift passes midnight, hours are still calculated into initial day’s total. | *See below*|
-| Overtime A | Paid for the first three hours of overtime | Working hours * ($4.25 * 25%) |
-| Overtime B | Paid for the fourth hour of overtime | Working hours * ($4.25 * 50%) |
-| Overtime C | Paid for all exceeding hours of overtime | Working hours * ($4.25 * 100%) |
-
-
-### Dependencies (npm)
-
-| dependency | version |
-| --- | --- |
-| bootstrap | ^4.1.1 |
-| classnames | ^2.2.5 |
-| csvtojson | ^1.1.12 |
-| firebase | ^5.0.2 |
-| gh-pages | ^1.1.0 |
-| moment | ^2.22.1 |
-| react | ^16.3.2 |
-| react-dom | ^16.3.2 |
-| react-file-drop | ^0.2.4 |
-| react-file-reader | ^1.1.4 |
-| react-redux | ^5.0.7 |
-| react-scripts | 1.1.4 |
-| reactstrap | ^6.0.1 |
-| redux | ^4.0.0 |
-| redux-thunk | ^2.2.0" |
-
-
-
+| Overtime A | Paid for the first three hours of overtime | Working hours &times; ($4.25 &times; 25%) |
+| Overtime B | Paid for the fourth hour of overtime | Working hours &times; ($4.25 &times; 50%) |
+| Overtime C | Paid for all exceeding hours of overtime | Working hours &times; ($4.25 &times; 100%) |
 
 ## To do
 

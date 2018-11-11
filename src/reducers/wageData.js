@@ -1,9 +1,17 @@
-import { FETCH_WAGE_DATA } from "../actions/types";
+import { SET_WAGE_DATA } from "../actions/types";
 
-const wageData = (state = [], action) => {
+const initialState = {
+  date: null,
+  rows: []
+}
+
+const wageData = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_WAGE_DATA:
-      return action.payload
+    case SET_WAGE_DATA:
+      return {
+        date: action.payload.date,
+        rows: action.payload.rows ? action.payload.rows : []
+      }
     default:
       return state
   }

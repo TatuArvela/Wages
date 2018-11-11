@@ -1,34 +1,34 @@
 {
-  "times" : {
-    "-LCyDvpk2zwEKrp6bPCw" : {
-      "date" : 1395784800000,
-      "end" : "2:00",
-      "personId" : 8,
-      "personName" : "John Smith",
-      "start" : "13:15"
+  "times": {
+    "-LCyDvpk2zwEKrp6bPCw": {
+      "date": 1395784800000,
+      "end": "17:00",
+      "personId": 8,
+      "personName": "John Smith",
+      "start": "8:00"
     },
-    "-LCyDvpyFfY6VUR5RK52" : {
-      "date" : 1395871200000,
-      "end" : "2:00",
-      "personId" : 8,
-      "personName" : "John Smith",
-      "start" : "13:15"
+    "-LCyDvpyFfY6VUR5RK52": {
+      "date": 1395871200000,
+      "end": "17:00",
+      "personId": 8,
+      "personName": "John Smith",
+      "start": "8:00"
     }
   },
-  "wages" : [ {
-    "monthAndYear" : "5-2018",
-    "personId" : 1,
-    "personName" : "John Smith",
-    "wages" : 2534.0
+  "wages": [{
+    "yearAndMonth": "2018-5",
+    "personId": 1,
+    "personName": "John Smith",
+    "wages": 2534.0
   }, {
-    "monthAndYear" : "5-2018",
-    "personId" : 2,
-    "personName" : "Jane Smith",
-    "wages" : 763.25
+    "yearAndMonth": "2018-5",
+    "personId": 2,
+    "personName": "Jane Smith",
+    "wages": 763.25
   }, {
-    "monthAndYear" : "5-2018",
-    "personId" : 3,
-    "personName" : "James Smith",
-    "wages" : 8539.72
-  } ]
+    "yearAndMonth": "2018-5",
+    "personId": 3,
+    "personName": "James Smith",
+    "wages": 8539.72
+  }]
 }
