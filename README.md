@@ -71,21 +71,3 @@ Example Data Row:
 | Overtime A | Paid for the first three hours of overtime | Working hours &times; ($4.25 &times; 25%) |
 | Overtime B | Paid for the fourth hour of overtime | Working hours &times; ($4.25 &times; 50%) |
 | Overtime C | Paid for all exceeding hours of overtime | Working hours &times; ($4.25 &times; 100%) |
-
-## To do
-
-### Front end
-
-* Select month and year
-
-### Back end
-
-* Query all data from Firebase 'times' ref with current month and year
-* Group data rows by 'personId'
-* Count and group data to different compensation categories
-  * Round currency calculations to nearest cent
-  * Round time to two decimal places (15 minutes = 0.25)
-* Count total as 'wages'
-* Set a string 'monthAndYear' (e.g. 5-2018)
-* Delete all rows from 'wages' ref for the current month
-* Save new rows with 'personId', 'personName', 'wages' and 'monthAndYear' to 'wages' ref
