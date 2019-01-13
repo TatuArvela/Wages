@@ -4,6 +4,8 @@
 
 Version 0.2.0
 
+![Wages screenshot](./Wages.png?raw=true "Wages screenshot")
+
 Import the working time data of your employees and calculate their monthly wages automatically. Time data is imported in a [predefined CSV format](#csv-file-format-specification).
 
 Wages is an open source web application built with React, Redux, Bootstrap 4, Firebase and GitHub Pages. A live demo is available [here](https://tatuarvela.github.io/Wages/).
